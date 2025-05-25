@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>AsmProject</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>Field</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.example</groupId>-->
+<!--            <artifactId>JarInst</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
+    </dependencies>
+    <build>
+        <finalName>are-agent</finalName>
+        <plugins>
+            <!--https://stackoverflow.com/questions/15872642/how-to-put-classes-for-javaagent-in-the-classpath
+-->
+            <!-- 打包Agent包的方法1-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>localvar/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>
+                                cn.asmer.lab.localvar.Multiplier
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude></exclude>
+                    </excludes>
+                    <includes>
+                        <include>cn/asmer/**</include>
+                    </includes>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>cn.asmer.lab.constvar.TestConstantChange</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>-->
+
+            <!-- 打包Agent包的方法2 fat package-->
+            <!--<plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>cn.asmer.lab.fields.FieldPremain</Premain-Class>
+&lt;!&ndash;                            <Premain-Class>cn.asmer.lab.constvar.TestConstantChangeAgent</Premain-Class>&ndash;&gt;
+&lt;!&ndash;                            <Premain-Class>cn.asmer.lab.localvar.ExampleAgent</Premain-Class>&ndash;&gt;
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        &lt;!&ndash; this is used for inheritance merges &ndash;&gt;
+                        <phase>package</phase>
+                        &lt;!&ndash; append to the packaging phase. &ndash;&gt;
+                        <goals>
+                            <goal>single</goal>
+                            &lt;!&ndash; goals == mojos &ndash;&gt;
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!-- 打包Agent包的方法3  thin package-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>cn.asmer.lab.localvar.ExampleAgent</Premain-Class>
+                            <Can-Redefine-Classes>false</Can-Redefine-Classes>
+                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
