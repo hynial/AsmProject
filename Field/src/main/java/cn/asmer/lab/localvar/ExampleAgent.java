@@ -29,7 +29,7 @@ public class ExampleAgent implements ClassFileTransformer {
 
         ClassReader cr = new ClassReader(classfileBuffer);
         ClassWriter cw = new ClassWriter(cr, 0);
-        cr.accept(new ClassVisitor(Opcodes.ASM5, cw) {
+        cr.accept(new ClassVisitor(Opcodes.ASM6, cw) {
             @Override
             public MethodVisitor visitMethod(int access, String name, String desc,
                                              String signature, String[] exceptions) {
@@ -37,7 +37,7 @@ public class ExampleAgent implements ClassFileTransformer {
                         access, name, desc, signature, exceptions);
                 if(name.equals(TRANSFORM_METHOD_NAME)
                         && desc.equals(TRANSFORM_METHOD_DESC)) {
-                    return new MethodVisitor(Opcodes.ASM5, mv) {
+                    return new MethodVisitor(Opcodes.ASM6, mv) {
                         @Override
                         public void visitIntInsn(int opcode, int operand) {
                             if(opcode == Opcodes.BIPUSH && operand == 10) operand = 1;

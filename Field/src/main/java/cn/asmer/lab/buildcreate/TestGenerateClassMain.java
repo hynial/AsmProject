@@ -10,6 +10,10 @@ import java.io.FileOutputStream;
  * 生成一个class文件
  */
 public class TestGenerateClassMain {
+    public void main2(String s) {
+        System.out.println(s);
+    }
+
     public static void main(String[] args) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "GeneratedClass", null, "java/lang/Object", null);

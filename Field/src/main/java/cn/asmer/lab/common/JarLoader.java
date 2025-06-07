@@ -45,7 +45,7 @@ public class JarLoader {
                 getSystemResourceAsStream(binaryName.replace('.', '/') + ".class");
     }
 
-
+    // working
     public static synchronized Class<?> loadClass(byte[] bytecode) throws Exception {
         ClassLoader scl = ClassLoader.getSystemClassLoader();
         Class<?>[] types = new Class<?>[]{ String.class, byte[].class, int.class, int.class };
@@ -66,7 +66,7 @@ public class JarLoader {
         ClassLoader classLoader = new ClassLoader() {
             @Override
             protected Class<?> findClass(String name) throws ClassNotFoundException {
-                if (name.indexOf("Integer") > -1) {
+                if (name.indexOf("PrintStream") > -1) {
                     System.out.println();
                 }
                 if (name.equals(className)) {
