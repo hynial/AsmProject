@@ -7,8 +7,10 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.util.List;
+
 /**
- *
+ * 可以先用插件Asm Byte Code Viewer生成ASM代码
  * public String toString() {
  * 	    	String result = new String(value, 0, count);
  * 	    	if(result.contains("Preparing:")) {
@@ -27,7 +29,7 @@ public class StringBuilderToString extends AbstractMethodReplaceVisitor {
     }
 
     @Override
-    public void generateNewBody(int access, String name, String desc, String signature, String[] exceptions) {
+    public void generateNewBody(List<String> descList, int access, String name, String desc, String signature, String[] exceptions) {
         // 替换原来的body
         MethodVisitor methodVisitor = cv.visitMethod(ACC_PUBLIC, "toString", "()Ljava/lang/String;", null, null);
         methodVisitor.visitCode();

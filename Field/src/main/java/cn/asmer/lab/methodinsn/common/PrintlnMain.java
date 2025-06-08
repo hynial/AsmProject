@@ -11,6 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Caused by: java.lang.SecurityException: Prohibited package name: java.io
  * 上述问题可以通过arthas的redefine对类进行重新定义
+ * redefine ///java/lang/StringBuilder.class
+ * redefine success, size: 1, classes:
+ * java.lang.StringBuilder
  */
 public class PrintlnMain {
 //    private static String methodName = "println";
